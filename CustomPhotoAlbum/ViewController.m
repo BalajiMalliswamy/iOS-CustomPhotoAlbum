@@ -27,9 +27,8 @@ NSString * const CSAlbumIdentifier = @"albumIdentifier";
 
 @implementation ViewController
 
-- (void)viewDidLoad
+- (void)createAlbum
 {
-    [super viewDidLoad];
     [CustomAlbum makeAlbumWithTitle:CSAlbum onSuccess:^(NSString *AlbumId)
      {
          albumId = AlbumId;
@@ -37,6 +36,12 @@ NSString * const CSAlbumIdentifier = @"albumIdentifier";
                             onError:^(NSError *error) {
                                 NSLog(@"probelm in creating album");
                             }];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self createAlbum];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -47,15 +52,25 @@ NSString * const CSAlbumIdentifier = @"albumIdentifier";
 
 - (IBAction)btnOnClick:(id)sender
 {
+    if (albumId)
+    {
+        [self createAlbum];
+    }
+    else
+    {
     [self Open_Library];
+    }
 }
 - (IBAction)getRecentImg:(id)sender
 {
-    [CustomAlbum getImageWithIdentifier:recentImg onSuccess:^(UIImage *image) {
-        [self.imgView setImage:image];
-    } onError:^(NSError *error) {
-        NSLog(@"Not found!");
-    }];
+    if (recentImg)
+    {
+        [CustomAlbum getImageWithIdentifier:recentImg onSuccess:^(UIImage *image) {
+            [self.imgView setImage:image];
+        } onError:^(NSError *error) {
+            NSLog(@"Not found!");
+        }];
+    }
 }
 
 

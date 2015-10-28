@@ -9,10 +9,12 @@
 #import "CustomAlbum.h"
 
 @implementation CustomAlbum
+
 #pragma mark - PHPhoto
 
 +(void)makeAlbumWithTitle:(NSString *)title onSuccess:(void(^)(NSString *AlbumId))onSuccess onError: (void(^)(NSError * error)) onError
 {
+    //Check weather the album already exist or not
     if (![self getMyAlbumWithName:title]) {
         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
             // Request editing the album.
@@ -30,7 +32,6 @@
                 onError(error);
             }
         }];
-        
     }
 }
 
@@ -105,7 +106,6 @@
 {
     NSError *error = [[NSError alloc] init];
     PHFetchResult *assets = [PHAsset fetchAssetsWithLocalIdentifiers:@[imageId] options:nil];
-    NSLog(@"assets.count = %lu", assets.count);
     if (assets.count == 0) onError(error);
     
     NSArray * assetArray = [self getAssets:assets];
