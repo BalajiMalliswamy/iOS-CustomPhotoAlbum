@@ -30,7 +30,13 @@ NSString * const CSAlbumIdentifier = @"albumIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [CustomAlbum makeAlbumWithTitle:CSAlbum onSuccess:^(NSString *AlbumId)
+     {
+         albumId = AlbumId;
+     }
+                            onError:^(NSError *error) {
+                                NSLog(@"probelm in creating album");
+                            }];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -41,13 +47,7 @@ NSString * const CSAlbumIdentifier = @"albumIdentifier";
 
 - (IBAction)btnOnClick:(id)sender
 {
-    [CustomAlbum makeAlbumWithTitle:CSAlbum onSuccess:^(NSString *AlbumId)
-     {
-         albumId = AlbumId;
-    }
-    onError:^(NSError *error) {
-        NSLog(@"probelm in creating album");
-    }];
+  
     [self Open_Library];
 }
 - (IBAction)getRecentImg:(id)sender
