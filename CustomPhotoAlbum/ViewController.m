@@ -47,7 +47,6 @@ NSString * const CSAlbumIdentifier = @"albumIdentifier";
 
 - (IBAction)btnOnClick:(id)sender
 {
-  
     [self Open_Library];
 }
 - (IBAction)getRecentImg:(id)sender
